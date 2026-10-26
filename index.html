@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="Author" content="Carlos Chaparro">
+  <meta name="keywords" content="Adso, js, Modal">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descubrir perfiles</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/profiles.js" defer></script>
+  <script src="js/matches.js" defer></script>
+  <script src="js/messages.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="shadow">
+    <main>
+      <section class="app">
+        <div class="white-bkg"></div>
+        <header class="app-header">
+          <img src="./tinder-logo.webp" alt="">
+          <h1 id="app-title">Descubrir</h1>
+        </header>
+
+        <div class="views">
+          <section class="view is-active" data-view="discover" aria-label="Descubrir perfiles">
+            <div class="cards" id="cards">
+              <span class="cards-empty" id="cards-empty">
+                No hay más personas cerca de ti...<br>
+                Vuelve a intentarlo más tarde
+              </span>
+            </div>
+            <footer class="actions">
+              <button class="is-undo" type="button" aria-label="Deshacer"></button>
+              <button class="is-remove is-big" type="button" aria-label="Pasar"></button>
+              <button class="is-star" type="button" aria-label="Super like"></button>
+              <button class="is-fav is-big" type="button" aria-label="Like"></button>
+              <button class="is-zap" type="button" aria-label="Ver perfil"></button>
+            </footer>
+          </section>
+
+          <section class="view" data-view="matches" hidden aria-label="Matches">
+            <div class="panel">
+              <h2>Mis Matches</h2>
+              <p class="hint">Los matches son simulados con datos locales. No indican interés de una persona real.</p>
+              <p class="empty-state" id="matches-empty">Todavía no tienes matches. Da like a un perfil configurado para corresponder.</p>
+              <ul class="list" id="matches-list" hidden></ul>
+            </div>
+          </section>
+
+          <section class="view" data-view="messages" hidden aria-label="Mensajes">
+            <div class="panel" id="inbox">
+              <h2>Mensajes</h2>
+              <p class="hint">Conversaciones locales de demostración. No hay envío a otros usuarios.</p>
+              <p class="empty-state" id="inbox-empty">No hay conversaciones. Un match simulado desbloquea el chat.</p>
+              <div class="list" id="inbox-list"></div>
+            </div>
+            <div class="panel" id="chat" hidden>
+              <div class="chat-header">
+                <button type="button" class="ghost-btn" id="chat-back">Volver</button>
+                <img id="chat-photo" alt="">
+                <strong id="chat-name"></strong>
+              </div>
+              <div class="messages" id="chat-thread"></div>
+              <form class="composer" id="chat-form">
+                <label class="sr-only" for="chat-input">Mensaje</label>
+                <input id="chat-input" name="message" maxlength="500" autocomplete="off" placeholder="Escribe un mensaje">
+                <button type="submit" class="primary-btn">Enviar</button>
+              </form>
+            </div>
+          </section>
+
+          <section class="view" data-view="profile" hidden aria-label="Mi perfil">
+            <div class="panel">
+              <h2>Mi perfil</h2>
+              <p class="hint">Se guarda en localStorage de este navegador. No es autenticación ni una base de datos segura.</p>
+              <div class="own-avatar" id="own-avatar" aria-hidden="true">T</div>
+              <form class="profile-form" id="own-profile-form">
+                <label>Nombre
+                  <input name="name" maxlength="40" required>
+                </label>
+                <label>Edad
+                  <input name="age" type="number" min="18" max="99" required>
+                </label>
+                <label>Ubicación
+                  <input name="location" maxlength="40" required>
+                </label>
+                <label>Descripción
+                  <textarea name="description" maxlength="280"></textarea>
+                </label>
+                <label>Intereses
+                  <input name="interests" maxlength="80" placeholder="Música, Cine">
+                </label>
+                <p class="feedback" id="profile-feedback" role="status"></p>
+                <button type="submit" class="primary-btn">Guardar perfil</button>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <nav class="bottom-nav" aria-label="Secciones">
+          <button type="button" data-view="discover" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.6-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.4 12 21 12 21z"/></svg>
+            Descubrir
+          </button>
+          <button type="button" data-view="matches">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h7l3 4-3 4H7l-3-4 3-4zM10 12h7l3 4-3 4h-7l-3-4 3-4z"/></svg>
+            Matches
+          </button>
+          <button type="button" data-view="messages">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H7l-3 3V5z"/></svg>
+            Mensajes
+          </button>
+          <button type="button" data-view="profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 4-4.5 7-4.5S17.5 16 19 19"/></svg>
+            Perfil
+          </button>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="modal" id="match-modal" aria-labelledby="match-title">
+    <div class="modal-body" id="match-modal-body"></div>
+  </dialog>
+  <dialog class="modal" id="profile-modal" aria-label="Perfil">
+    <div class="modal-body" id="profile-modal-body"></div>
+  </dialog>
+</body>
+</html>

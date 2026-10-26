@@ -1,0 +1,60 @@
+@media (max-width: 720px) {
+  body {
+    overflow: auto;
+    background: var(--color-frame);
+    place-content: stretch;
+  }
+
+  .shadow {
+    filter: none;
+    height: 100%;
+  }
+
+  main {
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    background: none;
+  }
+
+  .app {
+    margin: 0;
+    border-radius: 0;
+    padding: 12px 8px calc(8px + env(safe-area-inset-bottom));
+    min-height: 100%;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1100px) {
+  main {
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 1101px) {
+  main {
+    width: 360px;
+    height: 720px;
+  }
+}
+
+@media (max-height: 640px) and (min-width: 721px) {
+  main {
+    transform-origin: center;
+    transform: scale(0.9);
+  }
+}
+
+@media (pointer: coarse) {
+  .actions button:hover {
+    transform: none;
+  }
+
+  .composer input,
+  .list-actions button,
+  .primary-btn,
+  .ghost-btn,
+  .bottom-nav button {
+    min-height: 44px;
+  }
+}
